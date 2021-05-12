@@ -21,7 +21,7 @@ const Winner = ({ progress, selectedElements }) => {
             "0%": "#108ee9",
             "100%": "#87d068",
           }}
-          percent={progress}
+          percent={Math.floor(progress)}
         />
       )}
     </div>

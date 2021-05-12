@@ -40,7 +40,7 @@ function App() {
         description: "No puedes tener solo un salado!",
       });
     } else {
-      setProgress(0);
+      setProgress(0.5);
       setTimeout(() => {
         setProgress(30);
         setTimeout(() => {
