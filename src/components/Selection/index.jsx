@@ -4,7 +4,7 @@ import { Select } from "antd";
 import data from "../../elements.json";
 const { Option } = Select;
 
-const Selection = ({ selectedElements, handleChange }) => {
+const Selection = ({ selectedElements, handleChange, handleClear }) => {
   return (
     <Select
       mode="multiple"
@@ -14,6 +14,7 @@ const Selection = ({ selectedElements, handleChange }) => {
       placeholder="Selecciona a los afortunados"
       defaultValue={[]}
       onChange={handleChange}
+      onClear={handleClear}
     >
       {data.elements.map((element, index) => {
         return (

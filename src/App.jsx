@@ -1,58 +1,23 @@
 import { useState } from "react";
 
-import { shuffle } from "./utilities.js";
-
 import Buttons from "./components/Buttons";
 import Selection from "./components/Selection";
 import Winner from "./components/Winner";
 
 import "./App.css";
 import "antd/dist/antd.css";
-
-import data from "./elements.json";
-import { notification } from "antd";
+import useRaffle from "./hooks/raffle";
 
 function App() {
-  const [selectedElements, setSelectedElements] = useState([]);
-  const [progress, setProgress] = useState(0);
-
-  const handleChange = (value) => {
-    setSelectedElements(value);
-  };
-  const handleTodos = () => {
-    setSelectedElements(data.elements.map((element) => element.name));
-  };
-  const handleSalados = () => {
-    const salados = shuffle(
-      data.elements.map((element) => element.name)
-    ).filter((element) => Math.floor(Math.random() * 2) === 1);
-    setSelectedElements(salados);
-  };
-  const handleVamos = () => {
-    if (selectedElements.length === 0) {
-      notification["error"]({
-        message: "Noope",
-        description: "Debes seleccionar por lo menos dos elementos!",
-      });
-    } else if (selectedElements.length === 1) {
-      notification["error"]({
-        message: "Noope",
-        description: "No puedes tener solo un salado!",
-      });
-    } else {
-      setProgress(0.5);
-      setTimeout(() => {
-        setProgress(30);
-        setTimeout(() => {
-          setProgress(60);
-          setTimeout(() => {
-            setProgress(100);
-          }, 2000);
-        }, 2000);
-      }, 1000);
-    }
-  };
-
+  const {
+    selectedElements,
+    handleChange,
+    handleClear,
+    handleVamos,
+    handleTodos,
+    handleSalados,
+    progress,
+  } = useRaffle();
   return (
     <div className="App">
       <div className="container">
@@ -63,6 +28,7 @@ function App() {
           <Selection
             selectedElements={selectedElements}
             handleChange={handleChange}
+            handleClear={handleClear}
           />
           <Buttons
             progress={progress}
